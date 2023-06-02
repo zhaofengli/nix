@@ -373,6 +373,9 @@ public:
         "Whether to impersonate a Linux 2.6 machine on newer kernels.",
         {"build-impersonate-linux-26"}};
 
+    Setting<bool> hasZhaofengsCursedKernel{this, false, "has-zhaofengs-cursed-kernel",
+        "Whether we are running on Zhaofeng's cursed kernel."};
+
     Setting<bool> keepLog{
         this, true, "keep-build-log",
         R"(

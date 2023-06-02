@@ -24,7 +24,18 @@ void setPersonality(std::string_view system)
             || system == "armv6l-linux"
             || system == "armv5tel-linux")
         {
-            if (personality(PER_LINUX32) == -1)
+            int flags = 0;
+            if (settings.hasZhaofengsCursedKernel) {
+                if (system == "armv7l-linux") {
+                    flags = SHORT_INODE | WHOLE_SECONDS;
+                } else if (system == "armv6l-linux") {
+                    flags = SHORT_INODE;
+                } else if (system == "armv5tel-linux") {
+                    flags = WHOLE_SECONDS;
+                }
+            }
+
+            if (personality(PER_LINUX32 | flags) == -1)
                 throw SysError("cannot set 32-bit personality");
         }
 
